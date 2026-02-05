@@ -21,5 +21,69 @@ K8S 叢集將承載以下關鍵服務：
     - 採用 ArgoCD 實作 GitOps 自動化佈署。
 - **網路安全**：實作 Network Policy 進行 Namespace 層級的隔離。
 
-## 4. 研究 Issue 追蹤
+## 4. 系統架構圖 (Architecture Diagrams)
+
+### 4.1 核心服務佈署架構 (Cluster Overview)
+本架構採用多層 Namespace 隔離設計，並透過 Ingress Controller 統一出口。
+
+```mermaid
+graph TD
+    User([使用者]) --> Ingress[Ingress Controller / APISIX]
+    
+    subgraph "enterprise-apps (應用層)"
+        Ingress --> MM[Mattermost]
+        Ingress --> WK[Wiki.js]
+        Ingress --> OL[Outline]
+        Ingress --> NET[.NET Core Apps]
+    end
+    
+    subgraph "enterprise-data (資料層)"
+        MM --> PG[(PostgreSQL)]
+        WK --> PG
+        OL --> PG
+        NET --> PG
+        MM --> RD((Redis))
+        NET --> RD
+    end
+    
+    subgraph "enterprise-infra (監控與管理)"
+        ELK[(ELK Stack)]
+        KC[Keycloak SSO]
+        SCAN[Trivy Image Scan]
+    end
+    
+    %% 持久化儲存關聯
+    PG -.-> Longhorn[Longhorn Persistent Volume]
+    ELK -.-> Longhorn
+```
+
+### 4.2 SecDevOps 上版流程 (CI/CD Pipeline)
+展示從代碼提交到部署的安全自動化路徑。
+
+```mermaid
+sequenceDiagram
+    participant Dev as 開發者
+    participant GH as GitHub Actions
+    participant Scan as Trivy Scanner
+    participant Registry as Harbor / Registry
+    participant CD as ArgoCD
+    participant K8S as K8S Cluster
+
+    Dev->>GH: Git Push Code
+    GH->>GH: Build Container Image
+    GH->>Scan: 執行漏洞掃描 (Security Scan)
+    Scan-->>GH: 掃描結果 (High/Critical Check)
+    
+    alt 發現嚴重漏洞
+        GH-->>Dev: 終止佈署並報錯
+    else 通過檢核
+        GH->>Registry: Push Verified Image
+        GH->>GH: 更新 Helm / Kustomize Manifests
+        CD->>GH: 偵測到配置變更
+        CD->>K8S: 同步狀態 (GitOps Sync)
+        K8S-->>CD: 佈署完成
+    end
+```
+
+## 5. 研究 Issue 追蹤
 詳細的技術規劃與實作進度請參考本倉庫的 [Issues](https://github.com/tedtv1007-ctrl/enterprise-k8s-architecture-research/issues)。
