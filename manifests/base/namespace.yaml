@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: enterprise-apps
+  labels:
+    tier: collaboration
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: enterprise-data
+  labels:
+    tier: database
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: enterprise-infra
+  labels:
+    tier: monitoring
