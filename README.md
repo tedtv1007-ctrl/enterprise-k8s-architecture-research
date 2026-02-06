@@ -42,8 +42,8 @@ graph TD
         WK --> PG
         OL --> PG
         NET --> PG
-        MM --> RD((Redis))
-        NET --> RD
+        MM --> RD_MM((Redis for Mattermost))
+        NET --> RD_NET((Redis for .NET Apps))
     end
     
     subgraph "enterprise-infra (監控與管理)"
