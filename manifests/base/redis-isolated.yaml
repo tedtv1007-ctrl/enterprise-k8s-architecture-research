@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-mattermost
+  namespace: enterprise-apps
+spec:
+  selector:
+    matchLabels:
+      app: redis-mattermost
+  template:
+    metadata:
+      labels:
+        app: redis-mattermost
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-mattermost-svc
+  namespace: enterprise-apps
+spec:
+  selector:
+    app: redis-mattermost
+  ports:
+  - port: 6379
+    targetPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-dotnet
+  namespace: enterprise-apps
+spec:
+  selector:
+    matchLabels:
+      app: redis-dotnet
+  template:
+    metadata:
+      labels:
+        app: redis-dotnet
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        command: ["redis-server", "--requirepass", "dotnet-secure-pass"]
+        ports:
+        - containerPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-dotnet-svc
+  namespace: enterprise-apps
+spec:
+  selector:
+    app: redis-dotnet
+  ports:
+  - port: 6379
+    targetPort: 6379
