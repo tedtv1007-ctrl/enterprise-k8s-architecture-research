@@ -1,0 +1,27 @@
+name: Enterprise K8S Architecture CI
+
+on:
+  push:
+    branches: [ "main", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-manifests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # Install kubeval or helm for linting
+    - name: Install Helm
+      uses: azure/setup-helm@v3
+      with:
+        version: 'v3.12.0'
+
+    - name: Lint Cilium Values (Dry-run)
+      run: |
+        # Just checking if yaml is valid for now, as charts aren't fully built
+        helm template cilium cilium/cilium --repo https://helm.cilium.io/ --values manifests/cilium-values-production.yaml > /dev/null

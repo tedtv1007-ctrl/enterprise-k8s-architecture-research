@@ -1,0 +1,32 @@
+# Velero Helm values (example)
+configuration:
+  provider: aws
+  backupStorageLocation:
+    name: default
+    bucket: my-velero-bucket
+    config:
+      region: us-east-1
+credentials:
+  # Provide credentials via secretContents or mount
+  secretContents:
+    cloud: |
+      [default]
+      aws_access_key_id = YOUR_ACCESS_KEY
+      aws_secret_access_key = YOUR_SECRET_KEY
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.6.0
+
+# retention / pruning
+schedules:
+  hourly:
+    schedule: "0 * * * *"
+    template:
+      ttl: 720h # keep 30 days
+
+# snapshot storage (optional, for CSI snapshots)
+volumeSnapshotLocation:
+  name: default
+  config:
+    region: us-east-1

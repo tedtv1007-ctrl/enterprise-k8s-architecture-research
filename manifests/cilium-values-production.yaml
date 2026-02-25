@@ -1,0 +1,36 @@
+cluster:
+  name: production-cluster-01
+  id: 1
+
+# Identity-based security
+identityChangeGracePeriod: 5s
+
+# Transparent Encryption (WireGuard)
+encryption:
+  enabled: true
+  type: wireguard
+
+# Hubble Observability
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    dashboards:
+      enabled: true
+
+# L7 Proxy (Envoy) for API Security
+l7Proxy:
+  enabled: true
+
+# KubeProxy Replacement (Performance)
+kubeProxyReplacement: "strict"
+
+# Operator
+operator:
+  replicas: 2

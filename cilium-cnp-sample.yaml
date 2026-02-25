@@ -1,0 +1,25 @@
+# CiliumNetworkPolicy sample allowing APISIX -> backend and backend -> Postgres
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-apisix-to-backend-and-db
+spec:
+  endpointSelector:
+    matchLabels:
+      app: backend
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app: apisix
+    toPorts:
+    - ports:
+      - port: "5000"
+        protocol: TCP
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app: postgres
+    toPorts:
+    - ports:
+      - port: "5432"
+        protocol: TCP

@@ -1,0 +1,33 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: insurance-claims
+spec:
+  endpointSelector: {}
+  ingress:
+    - {}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-claims-api-l7
+  namespace: insurance-claims
+spec:
+  endpointSelector:
+    matchLabels:
+      app: claims-processor
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app: api-gateway
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+      rules:
+        http:
+        - method: "POST"
+          path: "/api/v1/submit-claim"
+        - method: "GET"
+          path: "/api/v1/status/.*"
