@@ -23,5 +23,7 @@ jobs:
 
     - name: Lint Cilium Values (Dry-run)
       run: |
-        # Just checking if yaml is valid for now, as charts aren't fully built
-        helm template cilium cilium/cilium --repo https://helm.cilium.io/ --values manifests/cilium-values-production.yaml > /dev/null
+        # Add repo and update to ensure chart is found
+        helm repo add cilium https://helm.cilium.io/
+        helm repo update
+        helm template cilium cilium/cilium --values manifests/cilium-values-production.yaml > /dev/null
