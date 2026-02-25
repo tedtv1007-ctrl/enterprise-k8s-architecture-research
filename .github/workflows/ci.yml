@@ -26,5 +26,5 @@ jobs:
         # Add repo and update to ensure chart is found
         helm repo add cilium https://helm.cilium.io/
         helm repo update
-        # Using full chart reference and explicit namespace
-        helm template cilium cilium/cilium --version 1.14.0 --values manifests/cilium-values-production.yaml --namespace kube-system > /dev/null
+        # Direct template from values without fetching full chart to isolate if it is a local vs remote issue
+        helm template cilium cilium/cilium --version 1.14.0 --values manifests/cilium-values-production.yaml --namespace kube-system || { echo "Helm template failed. Checking if values file exists..."; ls -l manifests/cilium-values-production.yaml; exit 1; }
