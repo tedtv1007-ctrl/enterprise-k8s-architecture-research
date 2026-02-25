@@ -18,7 +18,13 @@ hubble:
   ui:
     enabled: true
   metrics:
-    enabled: true
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - icmpx
+      - http
     serviceMonitor:
       enabled: true
     dashboards:
