@@ -1,0 +1,16 @@
+apiVersion: v2
+name: enterprise-k8s-stack
+description: A Helm chart for Enterprise K8S Security & Architecture (Cilium, ESO, Velero)
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+dependencies:
+  - name: cilium
+    version: 1.15.0
+    repository: https://helm.cilium.io/
+  - name: external-secrets
+    version: 0.9.13
+    repository: https://charts.external-secrets.io
+  - name: velero
+    version: 5.2.0
+    repository: https://vmware-tanzu.github.io/helm-charts

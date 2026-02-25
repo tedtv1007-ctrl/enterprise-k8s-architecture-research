@@ -1,0 +1,37 @@
+# Global settings
+clusterName: production-cluster-01
+
+# Cilium Configuration
+cilium:
+  enabled: true
+  hubble:
+    enabled: true
+    relay:
+      enabled: true
+    ui:
+      enabled: true
+  encryption:
+    enabled: true
+    type: wireguard
+
+# External Secrets Configuration
+external-secrets:
+  enabled: true
+  installCRDs: true
+
+# Velero Configuration
+velero:
+  enabled: true
+  configuration:
+    provider: aws
+    backupStorageLocation:
+      bucket: velero-backups
+      config:
+        region: minio
+  credentials:
+    useSecret: true
+    secretContents:
+      cloud: |
+        [default]
+        aws_access_key_id=minio
+        aws_secret_access_key=minio123
