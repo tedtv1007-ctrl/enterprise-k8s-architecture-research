@@ -25,7 +25,5 @@ jobs:
       run: |
         helm repo add cilium https://helm.cilium.io/
         helm repo update
-        # Using helm lint for actual validation and removing redirection to see error output
-        helm lint manifests/cilium-values-production.yaml || echo "Not a chart directory, expected."
-        # Use template without pipe to dev null to see error
-        helm template cilium cilium/cilium --version 1.14.0 --values manifests/cilium-values-production.yaml --namespace kube-system
+        # Using helm install dry-run with debug to see the actual error message in logs
+        helm install cilium cilium/cilium --version 1.14.0 --values manifests/cilium-values-production.yaml --namespace kube-system --dry-run --debug
