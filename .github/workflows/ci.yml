@@ -26,4 +26,5 @@ jobs:
         # Add repo and update to ensure chart is found
         helm repo add cilium https://helm.cilium.io/
         helm repo update
+        # Using chart name without slash if repo is added
         helm template cilium cilium/cilium --values manifests/cilium-values-production.yaml > /dev/null
