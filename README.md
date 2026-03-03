@@ -25,5 +25,5 @@
 ## 📍 研究清單 (Research Todo)
 - [ ] Cilium Cluster Mesh 多叢集連動測試
 - [ ] Hubble 監控指標與 Grafana Dashboard 整合
-- [ ] ESO 與私有 Vault 的自動化部署範本
+- [x] ESO 與私有 Vault 的自動化部署範本 ([Vault ESO Lab](./docs/vault-eso-lab.md))
 - [ ] Velero 針對 RWO 磁碟的備份一致性驗證

@@ -1,0 +1,41 @@
+# 該檔案定義了如何連接 Vault，以及如何將 Vault 中的密碼同步到 K8S
+
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: vault-backend
+spec:
+  provider:
+    vault:
+      server: "http://vault.vault.svc.cluster.local:8200" # 本地部署的 Vault URL
+      path: "secret"
+      version: "v2"
+      auth:
+        kubernetes:
+          mountPath: "kubernetes"
+          role: "eso-role"
+          serviceAccountRef:
+            name: external-secrets
+            namespace: external-secrets
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: milk-api-db-credentials
+  namespace: default
+spec:
+  refreshInterval: "10s" # 測試環境設定為 10 秒快速同步
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: milk-db-secret # K8S 中生成的 Secret 名稱
+  data:
+  - secretKey: username
+    remoteRef:
+      key: "apps/milk-api/db"
+      property: "user"
+  - secretKey: password
+    remoteRef:
+      key: "apps/milk-api/db"
+      property: "pass"
