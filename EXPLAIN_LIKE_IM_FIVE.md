@@ -37,6 +37,15 @@
 *   `manifests/`：存放正式環境的設定檔範本（如 Cilium 的生產環境設定、與 Vault 的連線設定）。
 *   `charts/`：這是一個 Helm Chart 包，將上述所有組件封裝在一起，方便一鍵部署。
 *   `policies/`：存放網路安全規則（L7 Rules），定義了應用程式之間的連線黑白名單。
+*   `scripts/`：包含自動化腳本（PowerShell），用於快速建立本地實驗環境（如 Kind 叢集部署）。
+
+---
+
+## 🔬 本地實驗指南 (Lab Guides)
+
+如果您想在自己的電腦上動手試試看，我們準備了自動化腳本與教學：
+1. **[Cilium & Hubble 觀測實驗](./docs/cilium-hubble-lab.md)**：教你如何建立 eBPF 環境並開啟流量地圖。
+2. **[Vault & ESO 金鑰管理實驗](./docs/vault-eso-lab.md)**：教你如何建立密碼保險箱並自動同步到 K8S。
 
 ---
 
