@@ -22,8 +22,15 @@
 - **應用情境**: 定期備份 K8S 資源與 Persistent Volumes (PV)。
 - **遷移**: 支援跨移至不同叢集或 Cloud Provider。
 
+## 🧪 本地實驗室 (Local Labs)
+本專案包含多個自動化腳本，可讓您在本地環境中快速啟動研究場景：
+- **[全功能 K8S 研究實驗室](./scripts/setup-full-lab.ps1)**: 一鍵建立整合 Cilium, Vault, ESO, Velero, MinIO 的研究環境。
+- **[Vault + ESO 實驗室](./docs/vault-eso-lab.md)**: 密碼同步與機敏資料管理演練。
+- **[Cilium + Hubble 實驗室](./docs/cilium-hubble-lab.md)**: eBPF 網路流量觀測與 L7 安全演練。
+- **[Velero 災難復原實驗室](./docs/velero-dr-lab.md)**: 備份與還原演練。
+
 ## 📍 研究清單 (Research Todo)
 - [ ] Cilium Cluster Mesh 多叢集連動測試
 - [ ] Hubble 監控指標與 Grafana Dashboard 整合
 - [x] ESO 與私有 Vault 的自動化部署範本 ([Vault ESO Lab](./docs/vault-eso-lab.md))
-- [ ] Velero 針對 RWO 磁碟的備份一致性驗證
+- [x] Velero 針對 RWO 磁碟的備份一致性驗證 ([Velero DR Lab](./docs/velero-dr-lab.md))
