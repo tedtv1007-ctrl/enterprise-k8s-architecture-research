@@ -2,6 +2,9 @@
 
 本專案專注於企業級 Kubernetes 架構的安全性、可觀測性與維運優化研究。
 
+## 📖 快速導讀 (New!)
+如果您不熟悉 K8S 相關技術，請先閱讀 [**EXPLAIN_LIKE_IM_FIVE.md**](./EXPLAIN_LIKE_IM_FIVE.md) 以獲得專案核心價值的簡單說明。
+
 ## 🕸️ 核心網路與安全 (Networking & Security)
 ### Cilium & Hubble (eBPF)
 - **Identity-based Security**: 擺脫傳統 IP 限制，改用 Pod Identity 進行 L3/L4 隔離。
