@@ -1,0 +1,35 @@
+configuration:
+  # S3/MinIO Backend settings
+  backupStorageLocation:
+    name: minio-backend
+    provider: aws
+    bucket: k8s-velero-backups
+    config:
+      region: minio
+      s3ForcePathStyle: true
+      s3Url: "http://minio.internal.corp:9000"
+      publicUrl: "http://minio.internal.corp:9000"
+    accessMode: ReadWrite
+
+  volumeSnapshotLocation:
+    name: minio-snapshots
+    provider: aws
+    config:
+      region: minio
+
+# Secret for credentials (should be created manually or via ESO)
+credentials:
+  secretContents:
+    cloud: |
+      [default]
+      aws_access_key_id = velero-user
+      aws_secret_access_key = velero-password
+
+# Deploy Node Agent for file-system level backups
+nodeAgent:
+  enabled: true
+  podVolumePath: /var/lib/kubelet/pods
+
+# RBAC configuration
+rbac:
+  create: true

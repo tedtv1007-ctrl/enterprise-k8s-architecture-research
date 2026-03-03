@@ -1,0 +1,19 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-full-backup
+  namespace: velero
+spec:
+  schedule: "0 2 * * *"  # 每天凌晨 2:00 執行
+  template:
+    ttl: "168h"  # 備份保留 7 天 (7*24h)
+    includedNamespaces:
+    - "*"  # 備份所有 Namespace
+    excludedNamespaces:
+    - kube-system
+    - velero
+    storageLocation: minio-backend
+    volumeSnapshotLocations:
+    - minio-snapshots
+    snapshotVolumes: true
+    includeClusterResources: true
