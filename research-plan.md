@@ -30,3 +30,8 @@
     - S3-compatible backend configuration (e.g., MinIO/AWS).
 - [x] **Artifact 6**: `backup-schedule.yaml`
     - Daily backup schedule with retention policy.
+- [x] **Artifact 6.5**: `scripts/setup-full-lab.ps1` & `docs/velero-dr-lab.md`
+    - Automated lab for Velero backup/restore verification.
+
+---
+**Summary**: All primary research phases and local lab environments have been established. Ready for advanced optimization and scenario testing.

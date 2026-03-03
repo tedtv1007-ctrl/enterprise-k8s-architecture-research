@@ -46,10 +46,17 @@
 如果您想在自己的電腦上動手試試看，我們準備了自動化腳本與教學：
 1. **[Cilium & Hubble 觀測實驗](./docs/cilium-hubble-lab.md)**：教你如何建立 eBPF 環境並開啟流量地圖。
 2. **[Vault & ESO 金鑰管理實驗](./docs/vault-eso-lab.md)**：教你如何建立密碼保險箱並自動同步到 K8S。
+3. **[Velero 災難復原實驗](./docs/velero-dr-lab.md)**：教你如何備份 K8S 資料並在意外發生時「一鍵救回」。
 
 ---
 
 ## 🚀 如何快速上手？
+如果您有 Windows PowerShell 環境，我們提供了一個「**全功能實驗室一鍵腳本**」，會為您自動建立 Kind 叢集並安裝上述所有組件：
+```powershell
+.\scripts\setup-full-lab.ps1
+```
+之後，您可以參考上述各個實驗指南進行更深入的操作。
+
 
 如果您想了解目前的研究進度與實驗計畫，請參閱：
 1.  **`README.md`**：查看專案整體目標與 TODO 清單。
