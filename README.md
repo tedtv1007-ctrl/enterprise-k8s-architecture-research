@@ -24,7 +24,8 @@
 
 ## 🧪 本地實驗室 (Local Labs)
 本專案包含多個自動化腳本，可讓您在本地環境中快速啟動研究場景：
-- **[全功能 K8S 研究實驗室](./scripts/setup-full-lab.ps1)**: 一鍵建立整合 Cilium, Vault, ESO, Velero, MinIO 的研究環境。
+- **[Linux/WSL/macOS 一鍵部署](./scripts/deploy-lab.sh)**: 使用 Shell 腳本自動化部署完整研究環境。
+- **[Windows PowerShell 一鍵部署](./scripts/setup-full-lab.ps1)**: 針對 Windows 使用者的自動化部署腳本。
 - **[Vault + ESO 實驗室](./docs/vault-eso-lab.md)**: 密碼同步與機敏資料管理演練。
 - **[Cilium + Hubble 實驗室](./docs/cilium-hubble-lab.md)**: eBPF 網路流量觀測與 L7 安全演練。
 - **[Hubble 監控實驗室](./docs/hubble-monitoring-lab.md)**: Prometheus 與 Grafana 指標監控演練。
