@@ -1,0 +1,25 @@
+# manifests/metallb-config.yaml
+# MetalLB configuration for Hyper-V Lab environment.
+# Assigns a static internal IP pool for LoadBalancer services.
+
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: hyperv-lab-pool
+  namespace: metallb-system
+spec:
+  # Adjust this range to match your VM network (VM2 Subnet)
+  # Example: If VM2 is 192.168.100.10, pool can be .200 to .250
+  addresses:
+  - 192.168.100.200-192.168.100.250
+  autoAssign: true
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: hyperv-lab-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - hyperv-lab-pool

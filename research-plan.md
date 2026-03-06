@@ -35,3 +35,15 @@
 
 ---
 **Summary**: All primary research phases and local lab environments have been established. Ready for advanced optimization and scenario testing.
+
+## Phase 4: Full Lab Integration (Hyper-V/Rocky Linux)
+**Objective**: Establish a multi-VM lab for enterprise DevOps & K8S experimentation.
+
+- [x] **Artifact 7**: `docs/lab-setup-hyperv.md`
+    - Detailed architecture and VM split (Control Plane vs. Workload Cluster).
+    - CI/CD workflow definition (GitLab → Harbor → Argo CD).
+    - Certificate and DNS strategy for AD-integrated environments.
+- [x] **Artifact 8**: `scripts/bootstrap-k8s-rocky.sh`
+    - Automate kubeadm setup for Rocky Linux 10.1.
+- [x] **Artifact 9**: `manifests/metallb-config.yaml`
+    - Local IP Address Pool configuration.

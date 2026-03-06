@@ -1,0 +1,51 @@
+# manifests/apisix-ingress-ad-cs.yaml
+# Purpose: Configuration for APISIX Ingress with AD CS TLS certificates.
+# Domain: api.it205.ski.ad (Enterprise Lab Environment)
+
+---
+# 1. K8S Secret for TLS (Assuming certificate signed by AD CS)
+# Generation command:
+# kubectl create secret tls it205-ski-ad-tls --cert=api-it205-ski-ad.crt --key=api-it205-ski-ad.key -n ingress-apisix
+apiVersion: v1
+kind: Secret
+metadata:
+  name: it205-ski-ad-tls
+  namespace: ingress-apisix
+type: kubernetes.io/tls
+data:
+  # Base64 encoded crt/key will be here
+  tls.crt: ""
+  tls.key: ""
+
+---
+# 2. APISIX Tls Resource
+apiVersion: apisix.apache.org/v2
+kind: ApisixTls
+metadata:
+  name: api-it205-ski-ad-tls
+  namespace: ingress-apisix
+spec:
+  hosts:
+    - api.it205.ski.ad
+  secret:
+    name: it205-ski-ad-tls
+    namespace: ingress-apisix
+
+---
+# 3. APISIX Route (Example: Routing to Harbor in VM1 or internal service)
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: api-gateway-route
+  namespace: ingress-apisix
+spec:
+  http:
+    - name: main-api
+      match:
+        hosts:
+          - api.it205.ski.ad
+        paths:
+          - "/*"
+      backends:
+        - serviceName: sample-app-service # Replace with your target service
+          servicePort: 80
